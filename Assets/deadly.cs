@@ -2,37 +2,16 @@ using UnityEngine;
 
 public class DeadlyPlatform : MonoBehaviour
 {
-    public Transform playerStartPoint;
-
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        GameObject player = collision.transform.root.gameObject;
-
-        if (player.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
-            RespawnCharacter(player);
+            PlayerRespawn player = other.GetComponent<PlayerRespawn>();
+
+            if (player != null)
+            {
+                player.Respawn();
+            }
         }
-    }
-
-    private void RespawnCharacter(GameObject player)
-    {
-        Debug.Log("Respawn");
-
-        CharacterController cc = player.GetComponent<CharacterController>();
-        if (cc != null)
-            cc.enabled = false;
-
-        player.transform.position = playerStartPoint.position;
-        player.transform.rotation = playerStartPoint.rotation;
-
-        Rigidbody rb = player.GetComponent<Rigidbody>();
-        if (rb != null)
-        {
-            rb.linearVelocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
-        }
-
-        if (cc != null)
-            cc.enabled = true;
     }
 }
