@@ -5,6 +5,7 @@ using TMPro;
 
 public class CutsceneController : MonoBehaviour
 {
+    public GameObject cutsceneController;
     public Image blinkPanel;
     public Transform cameraTransform;
 
@@ -104,6 +105,7 @@ public class CutsceneController : MonoBehaviour
             player.SetActive(true);
 
         StartCoroutine(TypeText());
+        cutsceneController.SetActive(false);
     }
 
     IEnumerator TypeText()

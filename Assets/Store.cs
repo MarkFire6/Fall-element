@@ -11,29 +11,36 @@ public class ShopSystem : MonoBehaviour
 
     [Header("Text")]
     public TextMeshProUGUI moneyText;
-    public TextMeshProUGUI messageText;
 
     void Start()
     {
-        shopPanel.SetActive(true);
+        shopPanel.SetActive(false);
 
         UpdateMoneyUI();
 
-        messageText.text = "Shop: ";
+        moneyText.text = "Shop: ";
+    }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if(Cursor.lockState == CursorLockMode.Locked)
+            {
+                Cursor.lockState = CursorLockMode.None;
+            }
+            else if(Cursor.lockState == CursorLockMode.None)
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+            }
+        }
     }
 
     // OPEN SHOP
     public void OpenShop()
     {
-        shopPanel.SetActive(true);
+        bool close = !shopPanel.activeSelf;
+        shopPanel.SetActive(close);
     }
-
-    // CLOSE SHOP
-    public void CloseShop()
-    {
-        shopPanel.SetActive(false);
-    }
-
     // BUY SWORD
     public void BuySword()
     {
@@ -45,11 +52,11 @@ public class ShopSystem : MonoBehaviour
 
             UpdateMoneyUI();
 
-            messageText.text = "Bought Sword!";
+            //messageText.text = "Bought Sword!";
         }
         else
         {
-            messageText.text = "Not enough money!";
+            //messageText.text = "Not enough money!";
         }
     }
 
@@ -64,11 +71,11 @@ public class ShopSystem : MonoBehaviour
 
             UpdateMoneyUI();
 
-            messageText.text = "Bought Potion!";
+            //messageText.text = "Bought Potion!";
         }
         else
         {
-            messageText.text = "Not enough money!";
+            //messageText.text = "Not enough money!";
         }
     }
 
